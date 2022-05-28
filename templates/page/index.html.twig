@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ title }}{% endblock %}
+{% block description %}{{ description|striptags }}{% endblock %}
+{% block keywords %}{{ keywords|striptags }}{% endblock %}
+{% block body %}
+    {{ content|raw }}
+{% endblock %}

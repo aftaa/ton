@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Новинки'|trans }}{% endblock %}
+
+{% block body %}
+    {% for newsItem in news %}
+        {% if newsItem.Link %}<a href="{{ newsItem.Link }}">{% endif %}
+        <img alt="{{ newsItem.getTitleByLocale(app.request.locale) }}"
+             src="/images/news/{{ newsItem.ImageLO }}" width="100" height="100" align="left">
+        {{ newsItem.NewsDate|date('d.m.Y') }}
+        {{ newsItem.getTitleByLocale(app.request.locale) }}
+        {% if newsItem.Link %}</a>{% endif %}
+        <br>
+        {{ newsItem.getContentByLocale(app.request.locale)|raw }}
+        <br clear="left">
+    {% endfor %}
+{% endblock %}

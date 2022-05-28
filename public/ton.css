@@ -1,0 +1,26 @@
+body, div, html {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: #5eb5e0;
+}
+
+body {
+    background: #000 url("/design/bg.jpg") top center no-repeat;
+    color: #5eb5e0;
+}
+
+header {
+    border: 3px solid #6f2b64;
+    border-top: none;
+    margin: 0 auto;
+    width: 959px;
+}
+#logo {
+    float: left;
+    height: 88px;
+    width: 336px;
+}
+

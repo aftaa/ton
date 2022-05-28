@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ title }}{% endblock %}
+{% block description %}{{ description|striptags }}{% endblock %}
+{% block keywords %}{{ keywords|striptags }}{% endblock %}
+{% block body %}
+    {{ content|raw }}
+    <hr>
+    <h2>{{ 'Новинки'|trans }}</h2>
+    {% for newsItem in news %}
+        {% if newsItem.Link %}<a href="{{ newsItem.Link }}">{% endif %}
+        <img alt="{{ newsItem.getTitleByLocale(app.request.locale) }}"
+             src="/images/news/{{ newsItem.ImageLO }}" width="100" height="100">
+        {{ newsItem.getTitleByLocale(app.request.locale) }}
+        {% if newsItem.Link %}</a>{% endif %}
+    {% endfor %}
+    <hr>
+    {{ content_bottom|raw }}
+    <hr>
+
+    {% if 'ru' == app.request.locale %}
+        <h2>{{ 'Читайте также'|trans }}</h2>
+        {% for article in articles %}
+            <a href="{{ path('article', {id: article.ArticleID}) }}">{{ article.title }}</a><br>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
