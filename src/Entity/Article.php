@@ -35,11 +35,6 @@ class Article
     #[ORM\Column(type: 'integer')]
     private $sort;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
     public function getArticleID(): ?int
     {
         return $this->ArticleID;

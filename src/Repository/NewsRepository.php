@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\News;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,12 +18,14 @@ use Doctrine\Persistence\ManagerRegistry;
 class NewsRepository extends ServiceEntityRepository
 {
     private const INDEX_COUNT = 4;
+    public const PAGINATOR_PER_PAGE = 10;
 
     /**
      * @param string $locale
-     * @return News[]
+     * @param int $offset
+     * @return Paginator
      */
-    public function findAllByLocale(string $locale): array
+    public function getPaginatorByLocale(string $locale, int $offset): Paginator
     {
         $qb = $this->createQueryBuilder('n');
         if ('ru' == $locale) {
@@ -30,10 +33,13 @@ class NewsRepository extends ServiceEntityRepository
         } else {
             $qb->where('n.display_en = TRUE');
         }
-        return $qb
+        $query = $qb
+            ->setMaxResults(self::PAGINATOR_PER_PAGE)
+            ->setFirstResult($offset)
             ->orderBy('n.NewsDate', 'DESC')
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
+
+        return new Paginator($query);
     }
 
     /**

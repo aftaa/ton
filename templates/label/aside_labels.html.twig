@@ -1,0 +1,23 @@
+<ul>
+    <li>
+        <a href="{{ path('collection', resetUri) }}">{{ 'все'|trans }}</a>
+        <br><br>
+    </li>
+    {% for label in labels %}
+        <li>
+            {% if label.active %}
+                <b>
+                    <a href="{{ path('collection', label.uri) }}">
+                        {{ label.name }}
+                    </a>
+                </b>
+            {% else %}
+                <a href="{{ path('collection', label.uri) }}">
+                    {{ label.name }}
+                </a>
+            {% endif %}
+            ({{ label.count }})
+            <br><br>
+        </li>
+    {% endfor %}
+</ul>

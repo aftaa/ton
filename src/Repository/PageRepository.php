@@ -17,6 +17,7 @@ use Doctrine\Persistence\ManagerRegistry;
 class PageRepository extends ServiceEntityRepository
 {
     public const DELIVERY = 1;
+    public const WHOLESALE = 2;
     public const CONTACTS = 6;
     public const INDEX = 8;
     public const INDEX_BOTTOM = 4;

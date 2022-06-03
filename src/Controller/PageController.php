@@ -30,6 +30,12 @@ class PageController extends AbstractController
         return $this->getPage(PageRepository::DELIVERY, $_locale);
     }
 
+    #[Route('/wholesale/', name: 'wholesale')]
+    public function wholesale(string $_locale)
+    {
+        return $this->getPage(PageRepository::WHOLESALE, $_locale);
+    }
+
     private function getPage(int $pageId, string $_locale): Response
     {
         $page = $this->pageRepository->find($pageId);

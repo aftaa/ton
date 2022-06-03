@@ -14,4 +14,9 @@
         {{ newsItem.getContentByLocale(app.request.locale)|raw }}
         <br clear="left">
     {% endfor %}
+
+    <hr>
+    {% for link,offset in pages %}
+        <a href="{{ path('news', {offset: offset}) }}">{{ link + 1 }}</a>
+    {% endfor %}
 {% endblock %}

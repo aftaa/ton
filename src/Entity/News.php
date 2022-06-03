@@ -50,11 +50,6 @@ class News
     #[ORM\Column(name: 'SizeY', type: 'integer')]
     private $SizeY;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
     public function getNewsID(): ?int
     {
         return $this->NewsID;

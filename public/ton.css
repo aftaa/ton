@@ -10,12 +10,15 @@ a {
 body {
     background: #000 url("/design/bg.jpg") top center no-repeat;
     color: #5eb5e0;
+    font-family: Verdana, sans-serif;
 }
 
 header {
+    background: #000;
     border: 3px solid #6f2b64;
     border-top: none;
     margin: 0 auto;
+    overflow: hidden;
     width: 959px;
 }
 #logo {
@@ -23,4 +26,46 @@ header {
     height: 88px;
     width: 336px;
 }
-
+nav {
+    height: 25px;
+    line-height: 25px;
+}
+nav li {
+    float: left;
+    list-style: none;
+    margin-right: 80px;
+}
+#main {
+    background: #000;
+    border: 3px solid #6f2b64;
+    border-top: none;
+    margin: 0 auto;
+    overflow: hidden;
+    width: 959px;
+}
+aside ul {
+    padding: 0;
+}
+aside li {
+    list-style: none;
+}
+aside#left {
+    float: left;
+    width: 150px;
+}
+aside#right {
+    float: right;
+    width: 150px;
+}
+main {
+    margin-left: 150px;
+    margin-right: 150px;
+    overflow: hidden;
+    width: 659px;
+}
+.product {
+    float: left;
+    height: 164px;
+    text-align: center;
+    width: 164px;
+}

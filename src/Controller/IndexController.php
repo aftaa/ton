@@ -6,12 +6,19 @@ use App\Repository\ArticleRepository;
 use App\Repository\NewsRepository;
 use App\Repository\PageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
 
 class IndexController extends AbstractController
 {
+    #[Route('/')]
+    public function indexNoLocale(): RedirectResponse
+    {
+        return $this->redirectToRoute('index', ['_locale' => 'ru']);
+    }
+
     #[Route('/{_locale<en|ru>}/', name: 'index')]
     public function index(
         string $_locale,

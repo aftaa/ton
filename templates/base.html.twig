@@ -23,10 +23,47 @@
             <img alt="" src="/design/logo.png" width="336" height="88">
         </a>
     </div>
-    {% include 'menu.html.twig' %}
+    <div id="lang">{% include 'lang.html.twig' %}</div>
+    <div id="user">
+        {% if app.user %}
+            {{ app.user.Login }}
+            <a href="{{ path('logout') }}">{{ 'Выход'|trans }}</a>
+        {% else %}
+            <a href="{{ path('login') }}">{{ 'Вход'|trans }}</a>
+        {% endif %}
+    </div>
+    <img alt="" src="/design/top.png">
+    <nav>{% include 'menu.html.twig' %}</nav>
 </header>
+<div id="main">
+    <aside id="left">
+        {{ 'Каталог'|trans }}
+        <ul>
+            <li>
+                <a href="{{ path('collection', resetUri) }}">{{ 'все'|trans }}</a>
+                <br><br>
+            </li>
+            {% for type in types %}
+                <li>
+                    {% if type.active %}
+                        <b><a href="{{ path('collection', type.uri) }}">{{ type.name }}</a></b>
+                    {% else %}
+                        <a href="{{ path('collection', type.uri) }}">{{ type.name }}</a>
+                    {% endif %}
+                    ({{ type.count }})
+                    <br><br>
+                </li>
+            {% endfor %}
+        </ul>
+    </aside>
+    <aside id="right">
+        {{ 'Производители'|trans }}
+        {{ render_esi(path('aside_labels')) }}
+    </aside>
+    <main role="main">
+        {% block body %}{% endblock %}
+    </main>
 
-
-{% block body %}{% endblock %}
+</div>
 </body>
 </html>

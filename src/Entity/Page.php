@@ -41,11 +41,6 @@ class Page
     #[ORM\Column(type: 'text')]
     private $description;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
     public function getPageID(): ?int
     {
         return $this->PageID;

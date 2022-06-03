@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CollectionController!{% endblock %}
+
+{% block body %}
+    {% for design in collection %}
+        <div class="product">
+            <img alt="" src="/images/designes/{{ design.ImageLO|trim }}">
+            <br>
+            <a href="{{ path('design', design.uri) }}">{{ design.name }}</a>
+        </div>
+    {% endfor %}
+{% endblock %}
