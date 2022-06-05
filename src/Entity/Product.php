@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 #[ORM\Table(name: 'TripProducts')]
-class Product
+class Product implements \Stringable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -465,5 +465,10 @@ class Product
         $this->label = $label;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getProductID();
     }
 }

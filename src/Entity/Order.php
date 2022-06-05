@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
 #[ORM\Table(name: 'TripOrders')]
-class Order
+class Order implements \Stringable
 {
     public const STATUSES = [
         'Принят',
@@ -85,7 +85,7 @@ class Order
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->OrderID;
     }
 
     public function getOrderID(): ?int
@@ -296,5 +296,10 @@ class Order
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getId();
     }
 }

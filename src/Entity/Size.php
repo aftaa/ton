@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SizeRepository::class)]
 #[ORM\Table(name: 'TripSizes')]
-class Size
+class Size implements \Stringable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -16,11 +16,6 @@ class Size
 
     #[ORM\Column(name: 'SizeName', type: 'string', length: 255)]
     private $SizeName;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getSizeID(): ?int
     {
@@ -44,5 +39,10 @@ class Size
         $this->SizeName = $SizeName;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getSizeName();
     }
 }

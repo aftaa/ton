@@ -39,6 +39,15 @@ class SizeRepository extends ServiceEntityRepository
         }
     }
 
+    public function findDisplayed()
+    {
+        $this->createQueryBuilder('s')
+            ->where('display = TRUE')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Size[] Returns an array of Size objects
 //     */

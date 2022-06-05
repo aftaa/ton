@@ -9,6 +9,9 @@
     <p>{{ 'Производитель'|trans }}: {{ product.label.getNameByLocale(app.request.locale) }}</p>
     <p>{{ product.getDescriptionByLocale(app.request.locale)|raw }}</p>
     <p>{{ 'Цена'|trans }}: {{ product.Price|number_format(0, '', ' ') }} ₽</p>
+
+    {{ form(form) }}
+
     <img alt="" src="/images/products/{{ product.ImageHI }}">
     <img alt="" src="/images/products/{{ product.ImageFL }}">
 {% endblock %}
