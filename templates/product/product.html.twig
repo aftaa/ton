@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block description %}{{ product.metaDescription }}{% endblock %}
+{% block keywords %}{{ product.keywords }}{% endblock %}
+{% block title %}{{ product.getNameByLocale(app.request.locale) }}{% endblock %}
+
+{% block body %}
+    <h1>{{ product.getNameByLocale(app.request.locale) }}</h1>
+    <p>{{ 'Артикул'|trans }}: [{{ product.Articul }}]</p>
+    <p>{{ 'Производитель'|trans }}: {{ product.label.getNameByLocale(app.request.locale) }}</p>
+    <p>{{ product.getDescriptionByLocale(app.request.locale)|raw }}</p>
+    <p>{{ 'Цена'|trans }}: {{ product.Price|number_format(0, '', ' ') }} ₽</p>
+    <img alt="" src="/images/products/{{ product.ImageHI }}">
+    <img alt="" src="/images/products/{{ product.ImageFL }}">
+{% endblock %}

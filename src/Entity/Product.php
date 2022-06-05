@@ -434,6 +434,15 @@ class Product
         }
     }
 
+    public function getDescriptionByLocale(string $locale): string
+    {
+        if ('ru' != $locale) {
+            return $this->getDescriptionEN();
+        } else {
+            return $this->getDescription();
+        }
+    }
+
     public function getDesign(): ?Design
     {
         return $this->design;

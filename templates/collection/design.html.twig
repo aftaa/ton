@@ -1,3 +1,10 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+    {% for product in products %}
+        <div class="product">
+            <img alt="" src="/images/products/{{ product.ImageLO|trim }}">
+            <br>
+            <a href="{{ path('product', {product: product.id}) }}">{{ product.name }}</a>
+        </div>
+    {% endfor %}
 {% endblock %}

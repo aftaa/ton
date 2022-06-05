@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\ParameterType;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -63,4 +64,26 @@ class ProductRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    /**
+     * @param int $designId
+     * @return array
+     */
+    public function findByDesign(int $designId, string $locale): array
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb->where('p.DesignID = :designId')
+            ->select('p.ImageLO, p.ProductID AS id')
+            ->setParameter('designId', $designId, ParameterType::INTEGER)
+            ->orderBy('p.DBDate', 'DESC')
+            ->andWhere('p.Visible = TRUE');
+
+        if ('ru' != $locale) {
+            $qb->addSelect('p.NameEN AS name');
+        } else {
+            $qb->addSelect('p.Name AS name');
+        }
+
+        return $qb->getQuery()
+            ->getResult();
+    }
 }

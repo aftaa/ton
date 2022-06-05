@@ -39,10 +39,11 @@ class DesignController extends AbstractController
     }
 
     #[Route('/{_locale<en|ru>}/design/{designId}/', name: 'design')]
-    public function design(string $_locale, int $designId, Request $request): Response
+    public function design(string $_locale, int $designId, Request $request, ProductRepository $productRepository): Response
     {
+        $products = $productRepository->findByDesign($designId, $_locale);
         return $this->render('collection/design.html.twig', [
-
+            'products' => $products,
         ]);
     }
 }
