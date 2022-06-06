@@ -4,8 +4,10 @@ namespace App\Entity;
 
 use App\Repository\OrderDetailRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: OrderDetailRepository::class)]
+#[ORM\Table(name: 'TripOrderDetails')]
 class OrderDetail
 {
     #[ORM\Id]
@@ -32,6 +34,8 @@ class OrderDetail
     private $ProductSize;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
+    #[Assert\GreaterThanOrEqual(1)]
     private $Quantity;
 
     #[ORM\ManyToOne(targetEntity: Order::class, inversedBy: 'details')]
@@ -181,5 +185,23 @@ class OrderDetail
         $this->size = $size;
 
         return $this;
+    }
+
+    /**
+     * @param OrderDetail $details
+     * @return bool
+     */
+    public function equals(self $details): bool
+    {
+        return $this->getProduct()->getProductID() === $details->getProduct()->getProductID()
+            && $this->getSize()->getSizeID() === $details->getSize()->getSizeID();
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotal(): int
+    {
+        return $this->getProduct()->getPrice() * $this->getQuantity();
     }
 }

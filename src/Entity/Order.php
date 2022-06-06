@@ -11,7 +11,10 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: 'TripOrders')]
 class Order implements \Stringable
 {
+    const STATUS_CART = -1;
+
     public const STATUSES = [
+        self::STATUS_CART => 'Корзина',
         'Принят',
         'В процессе',
         'Готов',
@@ -20,6 +23,7 @@ class Order implements \Stringable
     ];
 
     public const STATUSES_EN = [
+        self::STATUS_CART => 'Cart',
         'Accepted',
         'In process',
         'Ready',
@@ -36,7 +40,7 @@ class Order implements \Stringable
     private $CustomerID;
 
     #[ORM\Column(name: 'OrderStatus', type: 'integer')]
-    private $OrderStatus;
+    private $OrderStatus = self::STATUS_CART;
 
     #[ORM\Column(name: 'OrderDate', type: 'datetime')]
     private $OrderDate;
@@ -75,7 +79,7 @@ class Order implements \Stringable
     #[ORM\JoinColumn(name: 'CustomerID', referencedColumnName: 'CustomerID', nullable: false)]
     private $customer;
 
-    #[ORM\OneToMany(mappedBy: 'cart', targetEntity: OrderDetail::class)]
+    #[ORM\OneToMany(mappedBy: 'cart', targetEntity: OrderDetail::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private $details;
 
     public function __construct()
@@ -278,11 +282,20 @@ class Order implements \Stringable
 
     public function addDetail(OrderDetail $detail): self
     {
-        if (!$this->details->contains($detail)) {
-            $this->details[] = $detail;
-            $detail->setCart($this);
+//        if (!$this->details->contains($detail)) {
+//            $this->details[] = $detail;
+//            $detail->setCart($this);
+//        }
+        foreach ($this->getDetails() as $existingDetail) {
+            if ($existingDetail->equals($detail)) {
+                $existingDetail->setQuantity(
+                    $existingDetail->getQuantity() + $detail->getQuantity()
+                );
+                return $this;
+            }
         }
-
+        $this->details->add($detail);
+        $detail->setCart($this);
         return $this;
     }
 
@@ -298,8 +311,28 @@ class Order implements \Stringable
         return $this;
     }
 
+    public function removeDetails(): self
+    {
+        foreach ($this->getDetails() as $detail) {
+            $this->removeDetail($detail);
+        }
+        return $this;
+    }
+
     public function __toString(): string
     {
         return $this->getId();
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotal(): int
+    {
+        $total = 0;
+        foreach ($this->getDetails() as $detail) {
+            $total += $detail->getTotal();
+        }
+        return $total;
     }
 }

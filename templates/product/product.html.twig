@@ -10,7 +10,9 @@
     <p>{{ product.getDescriptionByLocale(app.request.locale)|raw }}</p>
     <p>{{ 'Цена'|trans }}: {{ product.Price|number_format(0, '', ' ') }} ₽</p>
 
+    <hr size="1">
     {{ form(form) }}
+    <hr size="1">
 
     <img alt="" src="/images/products/{{ product.ImageHI }}">
     <img alt="" src="/images/products/{{ product.ImageFL }}">

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CartController!{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Your Cart</h1>
+        {% if cart.details.count > 0 %}
+            <div class="row mt-4">
+                {{ form_start(form) }}
+                {{ form_widget(form.save) }}
+                {{ form_widget(form.clear) }}
+
+                {% for detail in form.details %}
+                    <hr size="1">
+                    {{ detail.vars.data.product.Name }}<br>
+                    Size: {{ form_widget(detail.size) }}<br>
+                    {{ detail.vars.data.product.Price }}<br>
+                    {{ 'Количество'|trans }}: {{ form_widget(detail.Quantity) }}
+                    {{ form_widget(detail.remove) }}
+                    <hr size="1">
+                {% endfor %}
+
+
+                {{ form_end(form, {'render_rest': false}) }}
+                <div class="col-md-8"></div>
+                {{ 'Итого'|trans }}: {{ cart.total }}
+                <div class="col-md-4"></div>
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                Your cart is empty. Go to the <a href="{{ path('index') }}">product list</a>.
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -3,15 +3,13 @@
 namespace App\Form;
 
 use App\Entity\OrderDetail;
-use App\Repository\SizeRepository;
-use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class OrderDetailType extends AbstractType
+class CartDetailType extends AbstractType
 {
     public function __construct(
         private readonly TranslatorInterface $translator,
@@ -22,11 +20,11 @@ class OrderDetailType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Quantity', )
+            ->add('Quantity')
             ->add('size')
-            ->add('add', SubmitType::class, [
-                'label' => $this->translator->trans('Добавить'),
-            ])
+            ->add('remove', SubmitType::class, [
+                'label' => $this->translator->trans('Удалить'),
+            ]);
         ;
     }
 

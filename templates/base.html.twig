@@ -32,6 +32,9 @@
             <a href="{{ path('login') }}">{{ 'Вход'|trans }}</a>
         {% endif %}
     </div>
+    <div id="cart">
+        <a href="{{ path('cart') }}">{{ 'Корзина'|trans }}</a>
+    </div>
     <img alt="" src="/design/top.png">
     <nav>{% include 'menu.html.twig' %}</nav>
 </header>
