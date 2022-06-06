@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello OrderController!{% endblock %}
+
+{% block body %}
+    {% for detail in order.details %}
+        <div>
+            <p>
+                {{ detail.ProductDesc }} x {{ detail.Quantity }}
+                = {{ detail.total }}
+            </p>
+        </div>
+    {% endfor %}
+    <div>
+        {{ 'Итого'|trans }}: {{ order.totalPrice }}
+    </div>
+    <hr size="1">
+{{ form(form) }}
+{% endblock %}

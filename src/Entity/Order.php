@@ -335,4 +335,13 @@ class Order implements \Stringable
         }
         return $total;
     }
+
+    public function getQuantity(): int
+    {
+        $q = 0;
+        foreach ($this->getDetails() as $detail) {
+            $q += $detail->getQuantity();
+        }
+        return $q;
+    }
 }
