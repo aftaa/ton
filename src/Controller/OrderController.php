@@ -6,24 +6,34 @@ use App\Entity\Customer;
 use App\Entity\Order;
 use App\Form\OrderType;
 use App\Manager\CartManager;
+use Symfony\Bridge\Twig\Mime\NotificationEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
 class OrderController extends AbstractController
 {
-    #[Route('/{_locale<en|ru>}/order', name: 'order')]
-    public function index(string $_locale, Request $request, CartManager $cartManager, Security $security): Response
+    /**
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     */
+    #[Route('/{_locale<en|ru>}/order/', name: 'order')]
+    public function index(
+        string $_locale, 
+        Request $request, 
+        CartManager $cartManager, 
+        Security $security,
+        MailerInterface $mailer,
+        string $adminEmail,
+    ): Response
     {
         /** @var Customer $user */
         $user = $security->getUser();
         if (!$user) {
             return $this->redirectToRoute('login');
         }
-
-        dump($user);
 
         $order = $cartManager->getCurrentCart();
 
@@ -54,6 +64,17 @@ class OrderController extends AbstractController
             $order = $form->getData();
             $order->setOrderStatus(0);
             $cartManager->save($order);
+
+            $mailer->send((new NotificationEmail())
+                ->subject('New order')
+                ->htmlTemplate('emails/new_order.html.twig')
+                ->addFrom($adminEmail)
+                ->addTo($adminEmail)
+                ->context([
+                    'order' => $order,
+                ])
+            );
+
             return $this->redirectToRoute('cart');
         }
 

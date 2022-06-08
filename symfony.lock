@@ -83,6 +83,9 @@
     "laminas/laminas-code": {
         "version": "4.5.1"
     },
+    "lorenzo/pinky": {
+        "version": "1.0.6"
+    },
     "masterminds/html5": {
         "version": "2.7.5"
     },
@@ -219,6 +222,9 @@
         "files": [
             "config/packages/sensio_framework_extra.yaml"
         ]
+    },
+    "symfony/amqp-messenger": {
+        "version": "6.2.x-dev"
     },
     "symfony/asset": {
         "version": "6.2.x-dev"
@@ -610,7 +616,16 @@
     "theseer/tokenizer": {
         "version": "1.2.1"
     },
+    "tijsverkoyen/css-to-inline-styles": {
+        "version": "2.2.4"
+    },
+    "twig/cssinliner-extra": {
+        "version": "v3.4.0"
+    },
     "twig/extra-bundle": {
+        "version": "v3.4.0"
+    },
+    "twig/inky-extra": {
         "version": "v3.4.0"
     },
     "twig/twig": {
