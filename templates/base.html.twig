@@ -32,6 +32,9 @@
             <a href="{{ path('login') }}">{{ 'Вход'|trans }}</a>
         {% endif %}
     </div>
+    <div id="ip">
+        {{ app.request.getClientIp }}
+    </div>
     <div id="cart">
         <a href="{{ path('cart') }}">{{ 'Корзина'|trans }}</a>
     </div>
