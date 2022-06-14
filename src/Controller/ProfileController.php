@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Customer;
 use App\Form\CustomerProfileType;
+use App\Form\NewPasswordType;
 use App\Repository\CustomerRepository;
+use App\Security\PasswordHasher;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,6 +48,43 @@ class ProfileController extends AbstractController
 
         return $this->render('profile/index.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/{_locale<en|ru>}/profile/password', name: 'profile-password')]
+    public function newPassword(
+        string $_locale,
+        Request $request,
+        CustomerRepository $customerRepository,
+        PasswordHasher $passwordHasher,
+        EntityManagerInterface $entityManager,
+    ): Response
+    {
+        $message = '';
+        $customer = $customerRepository->find($this->getUser()->getId());
+        $form = $this->createForm(NewPasswordType::class, $customer);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $currentPassword = $request->get('new_password')['Pass'];
+            try {
+                $currentPassword = $passwordHasher->hash($currentPassword);
+                if ($currentPassword != $this->getUser()->getPassword()) {
+                    throw new \Exception('Bad old password');
+                }
+                $newPassword = $request->get('new_password')['newPass']['first'];
+                $newPassword = $passwordHasher->hash($newPassword);
+                $customer->setPassword($newPassword);
+                $entityManager->persist($customer);
+                $entityManager->flush();;
+            } catch (\Exception $exception) {
+                $message = $exception->getMessage();
+            }
+        }
+
+        return $this->render('profile/password.html.twig', [
+            'form' => $form->createView(),
+            'message' => $message,
         ]);
     }
 }
