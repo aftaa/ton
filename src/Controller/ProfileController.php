@@ -9,6 +9,7 @@ use App\Repository\CustomerRepository;
 use App\Security\PasswordHasher;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -60,6 +61,10 @@ class ProfileController extends AbstractController
         EntityManagerInterface $entityManager,
     ): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('login');
+        }
+
         $message = '';
         $customer = $customerRepository->find($this->getUser()->getId());
         $form = $this->createForm(NewPasswordType::class, $customer);
