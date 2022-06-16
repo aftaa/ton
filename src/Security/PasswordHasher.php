@@ -28,9 +28,7 @@ class PasswordHasher implements PasswordHasherInterface
             return false;
         }
 
-        dump($plainPassword);
-
-        return $hashedPassword == $this->hash($plainPassword);
+        return $hashedPassword === $this->hash($plainPassword);
     }
 
     public function needsRehash(string $hashedPassword): bool
