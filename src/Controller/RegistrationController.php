@@ -7,7 +7,9 @@ use App\Form\RegistrationFormType;
 use App\Repository\CustomerRepository;
 use App\Security\Authenticator;
 use App\Security\EmailVerifier;
+use App\Security\PasswordHasher;
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Util\Exception;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,7 +31,15 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/register', name: 'register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, Authenticator $authenticator, EntityManagerInterface $entityManager): Response
+    public function register(
+        Request                    $request,
+        PasswordHasher             $userPasswordHasher,
+        UserAuthenticatorInterface $userAuthenticator,
+        Authenticator              $authenticator,
+        EntityManagerInterface     $entityManager,
+        CustomerRepository         $customerRepository,
+        TranslatorInterface        $translator,
+    ): Response
     {
         $user = new Customer();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -37,31 +47,40 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
-            $user->setPass(
-            $userPasswordHasher->hashPassword(
+
+            try {
+                if ($customerRepository->findBy(['Login' => $form->get('Login')->getData()])) {
+                    throw new \Exception($translator->trans('Login exists'));
+                }
+                if ($customerRepository->findBy(['Email' => $form->get('Email')->getData()])) {
+                    throw new \Exception($translator->trans('Email exists'));
+                }
+
+                $user->setPassword(
+                    $userPasswordHasher->hash(
+                        $form->get('plainPassword')->getData()
+                    )
+                );
+                $entityManager->persist($user);
+                $entityManager->flush();// generate a signed url and email it to the user
+                $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+                    (new TemplatedEmail())
+                        ->from(new Address('after@ya.ru', 'Mail Bot'))
+                        ->to($user->getEmail())
+                        ->subject('Please Confirm your Email')
+                        ->htmlTemplate('registration/confirmation_email.html.twig')
+                );// do anything else you need here, like send an email
+
+                $this->addFlash('verify_email_error', 'Check your email');
+
+                return $userAuthenticator->authenticateUser(
                     $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
-
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-                (new TemplatedEmail())
-                    ->from(new Address('after@ya.ru', 'Mail Bot'))
-                    ->to($user->getEmail())
-                    ->subject('Please Confirm your Email')
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
-            );
-            // do anything else you need here, like send an email
-
-            return $userAuthenticator->authenticateUser(
-                $user,
-                $authenticator,
-                $request
-            );
+                    $authenticator,
+                    $request
+                );
+            } catch (\Exception $e) {
+                $this->addFlash('verify_email_error', $e->getMessage());
+            }
         }
 
         return $this->render('registration/register.html.twig', [
