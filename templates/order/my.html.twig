@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>{{ 'Мои заказы'|trans }}</h1>
+    {% for order in orders %}
+        <p>
+        <a href="{{ path('my_order', {order: order.OrderID}) }}">{{ order.OrderID }}</a>
+        </p>
+    {% endfor %}
+{% endblock %}
+
+{% block title %}
+    {{ 'Мои заказы'|trans }}
+{% endblock %}
+

@@ -38,6 +38,9 @@
     </div>
     <div id="cart">
         <a href="{{ path('cart') }}">{{ 'Корзина'|trans }}</a>
+        {% if app.user %}
+            <a href="{{ path('my_orders') }}">Заказы</a>
+        {% endif %}
     </div>
     <div id="profile">
         <a href="{{ path('profile') }}">{{ 'Профиль'|trans }}</a>

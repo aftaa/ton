@@ -6,6 +6,7 @@ use App\Entity\Customer;
 use App\Entity\Order;
 use App\Form\OrderType;
 use App\Manager\CartManager;
+use Psr\Container\ContainerInterface;
 use Symfony\Bridge\Twig\Mime\NotificationEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,12 +22,12 @@ class OrderController extends AbstractController
      */
     #[Route('/{_locale<en|ru>}/order/', name: 'order')]
     public function index(
-        string $_locale, 
-        Request $request, 
-        CartManager $cartManager, 
-        Security $security,
+        string          $_locale,
+        Request         $request,
+        CartManager     $cartManager,
+        Security        $security,
         MailerInterface $mailer,
-        string $adminEmail,
+        string          $adminEmail,
     ): Response
     {
         /** @var Customer $user */
@@ -84,4 +85,25 @@ class OrderController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/my/', name: 'my_orders')]
+    public function my(
+        Security $security,
+    ): Response
+    {
+        $user = $security->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('login');
+        }
+        $orders = $this->getUser()->getOrders();
+        return $this->render('order/my.html.twig', [
+            'orders' => $orders,
+        ]);
+    }
+
+    #[Route('/my/{order}', name: 'my_order')]
+    public function myOrder()
+    {
+    }
+
 }
