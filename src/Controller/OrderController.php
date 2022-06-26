@@ -6,6 +6,7 @@ use App\Entity\Customer;
 use App\Entity\Order;
 use App\Form\OrderType;
 use App\Manager\CartManager;
+use App\Repository\OrderDetailRepository;
 use Psr\Container\ContainerInterface;
 use Symfony\Bridge\Twig\Mime\NotificationEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -102,8 +103,11 @@ class OrderController extends AbstractController
     }
 
     #[Route('/my/{order}', name: 'my_order')]
-    public function myOrder()
+    public function myOrder(Order $order)
     {
+        return $this->render('order/my-order-cart.html.twig', [
+            'order' => $order,
+        ]);
     }
 
 }

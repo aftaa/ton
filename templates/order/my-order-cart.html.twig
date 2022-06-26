@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    {{ 'Заказ №'|trans }} {{ order.OrderId }}
+{% endblock %}
+{% block body %}
+    <h1>{{ 'Заказ №'|trans }} {{ order.OrderId }}</h1>
+    {% for position in order.details %}
+        <p>
+            <h2>{{ position.ProductDesc }}</h2>
+            <h3>{{ position.productPrice|number_format(0, '', ' ') }} ₽ x {{ position.Quantity }}</h3>
+            <h4>{{ position.ProductSize }}</h4>
+        </p>
+    {% endfor %}
+    = {{ order.TotalPrice|number_format(0, '', ' ') }} ₽
+{% endblock %}

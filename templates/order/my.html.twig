@@ -1,10 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<h1>{{ 'Мои заказы'|trans }}</h1>
+    <h1>{{ 'Мои заказы'|trans }}</h1>
     {% for order in orders %}
         <p>
-        <a href="{{ path('my_order', {order: order.OrderID}) }}">{{ order.OrderID }}</a>
+            #<a href="{{ path('my_order', {order: order.OrderID}) }}">{{ order.OrderID }}</a>
+            {{ order.OrderDate|date('d.m.Y') }}
+            ({{ order.TotalQuantity }})
+            = {{ order.TotalPrice|number_format(0, '', ' ') }} ₽
         </p>
     {% endfor %}
 {% endblock %}
