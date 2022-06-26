@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="ru" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="cQOMU7v" resname="Добавить">
+        <source>Добавить</source>
+        <target>__Добавить</target>
+      </trans-unit>
+      <trans-unit id="vpmxNhI" resname="Удалить">
+        <source>Удалить</source>
+        <target>__Удалить</target>
+      </trans-unit>
+      <trans-unit id="tNMMrlK" resname="Сохранить">
+        <source>Сохранить</source>
+        <target>__Сохранить</target>
+      </trans-unit>
+      <trans-unit id="iWUnHTy" resname="Очистить">
+        <source>Очистить</source>
+        <target>__Очистить</target>
+      </trans-unit>
+      <trans-unit id="O4U.lKb" resname="Оформить заказ">
+        <source>Оформить заказ</source>
+        <target>__Оформить заказ</target>
+      </trans-unit>
+      <trans-unit id="lpnyLch" resname="Login exists">
+        <source>Login exists</source>
+        <target>__Login exists</target>
+      </trans-unit>
+      <trans-unit id="6p6IgG1" resname="Email exists">
+        <source>Email exists</source>
+        <target>__Email exists</target>
+      </trans-unit>
+      <trans-unit id="9xSTQHO" resname="Новинки">
+        <source>Новинки</source>
+        <target>__Новинки</target>
+      </trans-unit>
+      <trans-unit id="YHpo3QK" resname="Вы зашли под логином">
+        <source>Вы зашли под логином</source>
+        <target>__Вы зашли под логином</target>
+      </trans-unit>
+      <trans-unit id="VpDC5ju" resname="Выйти">
+        <source>Выйти</source>
+        <target>__Выйти</target>
+      </trans-unit>
+      <trans-unit id="R8GHBMK" resname="Войти в магазин">
+        <source>Войти в магазин</source>
+        <target>__Войти в магазин</target>
+      </trans-unit>
+      <trans-unit id="W_Er.kn" resname="Логин">
+        <source>Логин</source>
+        <target>__Логин</target>
+      </trans-unit>
+      <trans-unit id="yxogdLO" resname="Пароль">
+        <source>Пароль</source>
+        <target>__Пароль</target>
+      </trans-unit>
+      <trans-unit id="j8mrLus" resname="Войти">
+        <source>Войти</source>
+        <target>__Войти</target>
+      </trans-unit>
+      <trans-unit id="u2tM4OY" resname="Сбросить пароль">
+        <source>Сбросить пароль</source>
+        <target>__Сбросить пароль</target>
+      </trans-unit>
+      <trans-unit id="PRp6v28" resname="Итого">
+        <source>Итого</source>
+        <target>__Итого</target>
+      </trans-unit>
+      <trans-unit id="iKUleZK" resname="Заказ №">
+        <source>Заказ №</source>
+        <target>__Заказ №</target>
+      </trans-unit>
+      <trans-unit id="E.rHGRn" resname="Мои заказы">
+        <source>Мои заказы</source>
+        <target>__Мои заказы</target>
+      </trans-unit>
+      <trans-unit id="J2ccZzM" resname="Артикул">
+        <source>Артикул</source>
+        <target>__Артикул</target>
+      </trans-unit>
+      <trans-unit id="oC7JC46" resname="Производитель">
+        <source>Производитель</source>
+        <target>__Производитель</target>
+      </trans-unit>
+      <trans-unit id="vg5wXO2" resname="Цена">
+        <source>Цена</source>
+        <target>__Цена</target>
+      </trans-unit>
+      <trans-unit id="c391Yb1" resname="Количество">
+        <source>Количество</source>
+        <target>__Количество</target>
+      </trans-unit>
+      <trans-unit id="wwiXU6J" resname="все">
+        <source>все</source>
+        <target>__все</target>
+      </trans-unit>
+      <trans-unit id="dc0kwxX" resname="Выход">
+        <source>Выход</source>
+        <target>__Выход</target>
+      </trans-unit>
+      <trans-unit id="Y.XCwvl" resname="Вход">
+        <source>Вход</source>
+        <target>__Вход</target>
+      </trans-unit>
+      <trans-unit id="nZG38nA" resname="Регистрация">
+        <source>Регистрация</source>
+        <target>__Регистрация</target>
+      </trans-unit>
+      <trans-unit id="7BgIQT3" resname="Корзина">
+        <source>Корзина</source>
+        <target>__Корзина</target>
+      </trans-unit>
+      <trans-unit id="NZSXr.U" resname="Профиль">
+        <source>Профиль</source>
+        <target>__Профиль</target>
+      </trans-unit>
+      <trans-unit id="0O81QLC" resname="Каталог">
+        <source>Каталог</source>
+        <target>__Каталог</target>
+      </trans-unit>
+      <trans-unit id="6BCahTH" resname="Производители">
+        <source>Производители</source>
+        <target>__Производители</target>
+      </trans-unit>
+      <trans-unit id="K06KbBG" resname="Читайте также">
+        <source>Читайте также</source>
+        <target>__Читайте также</target>
+      </trans-unit>
+      <trans-unit id="ZRUHRsy" resname="Клубная одежда">
+        <source>Клубная одежда</source>
+        <target>__Клубная одежда</target>
+      </trans-unit>
+      <trans-unit id="ve3k4qP" resname="Одежда оптом">
+        <source>Одежда оптом</source>
+        <target>__Одежда оптом</target>
+      </trans-unit>
+      <trans-unit id="d0OdI7e" resname="Доставка">
+        <source>Доставка</source>
+        <target>__Доставка</target>
+      </trans-unit>
+      <trans-unit id=".KjVqjw" resname="Контакты">
+        <source>Контакты</source>
+        <target>__Контакты</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
