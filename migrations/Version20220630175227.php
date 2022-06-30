@@ -26,6 +26,6 @@ final class Version20220630175227 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-
+        $this->addSql('ALTER TABLE TripCustomers DROP COLUMN roles');
     }
 }
