@@ -78,6 +78,11 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->CustomerID;
     }
 
+    public function getPass()
+    {
+        return $this->Pass;
+    }
+
     public function getId(): ?int
     {
         return $this->CustomerID;
