@@ -73,6 +73,11 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
         $this->orders = new ArrayCollection();
     }
 
+    public function getCustomerID()
+    {
+        return $this->CustomerID;
+    }
+
     public function getId(): ?int
     {
         return $this->CustomerID;
