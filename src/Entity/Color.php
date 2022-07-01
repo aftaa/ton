@@ -14,16 +14,11 @@ class Color
     #[ORM\Column(name: 'ColorID', type: 'integer')]
     private $ColorID;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $Name;
+    #[ORM\Column(name: 'ColorName', type: 'string', length: 255)]
+    private string $ColorName;
 
-    #[ORM\Column(name: 'NameEN', type: 'string', length: 255)]
-    private $NameEN;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    #[ORM\Column(name: 'ColorNameEN', type: 'string', length: 255)]
+    private string $ColorNameEN;
 
     public function getColorID(): ?int
     {
@@ -37,26 +32,26 @@ class Color
         return $this;
     }
 
-    public function getName(): ?string
+    public function getColorName(): ?string
     {
-        return $this->Name;
+        return $this->ColorName;
     }
 
     public function setName(string $Name): self
     {
-        $this->Name = $Name;
+        $this->ColorName = $Name;
 
         return $this;
     }
 
-    public function getNameEN(): ?string
+    public function getColorNameEN(): ?string
     {
-        return $this->NameEN;
+        return $this->ColorNameEN;
     }
 
     public function setNameEN(string $NameEN): self
     {
-        $this->NameEN = $NameEN;
+        $this->ColorNameEN = $NameEN;
 
         return $this;
     }

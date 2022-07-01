@@ -10,6 +10,7 @@ use App\Entity\Label;
 use App\Entity\News;
 use App\Entity\Order;
 use App\Entity\OrderDetail;
+use App\Entity\Page;
 use App\Entity\Product;
 use App\Entity\Size;
 use App\Entity\Type;
@@ -48,22 +49,25 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Ton');
+            ->setTitle('Trip-o-nation')
+            //            ->setFaviconPath('favicon.ico')
+            ;
     }
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkToDashboard('Админка', 'fa fa-home');
         yield MenuItem::linkToCrud('Orders', 'fas fa-list', Order::class);
         yield MenuItem::linkToCrud('Order details', 'fas fa-list', OrderDetail::class);
         yield MenuItem::linkToCrud('Designs', 'fas fa-list', Design::class);
         yield MenuItem::linkToCrud('Types', 'fas fa-list', Type::class);
         yield MenuItem::linkToCrud('Labels', 'fas fa-list', Label::class);
         yield MenuItem::linkToCrud('Products', 'fas fa-list', Product::class);
-        yield MenuItem::linkToCrud('Sizes', 'fas fa-list', Size::class);
-        yield MenuItem::linkToCrud('Colors', 'fas fa-list', Color::class);
-        yield MenuItem::linkToCrud('News', 'fas fa-list', News::class);
-        yield MenuItem::linkToCrud('Articles', 'fas fa-list', Article::class);
-        yield MenuItem::linkToCrud('Customers', 'fas fa-list', Customer::class);
+        yield MenuItem::linkToCrud('Sizes', 'fas fa-tags', Size::class);
+        yield MenuItem::linkToCrud('Colors', 'fas fa-tags', Color::class);
+        yield MenuItem::linkToCrud('News', 'fas fa-file-text', News::class);
+        yield MenuItem::linkToCrud('Articles', 'fas fa-file-text', Article::class);
+        yield MenuItem::linkToCrud('Pages', 'fas fa-file-text', Page::class);
+        yield MenuItem::linkToCrud('Customers', 'fas fa-user', Customer::class);
     }
 }
