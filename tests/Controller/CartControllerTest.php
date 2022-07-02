@@ -4,6 +4,7 @@ namespace App\Tests\Controller;
 
 use App\Tests\CartAssertionsTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\BrowserKit\AbstractBrowser;
 
 class CartControllerTest extends WebTestCase
 {
@@ -40,7 +41,7 @@ class CartControllerTest extends WebTestCase
     public function testCartIsEmpty()
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/cart');
+        $crawler = $client->request('GET', '/ru/cart');
 
         $this->assertResponseIsSuccessful();
         $this->assertCartIsEmpty($crawler);
