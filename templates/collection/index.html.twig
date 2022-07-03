@@ -4,10 +4,10 @@
 
 {% block body %}
     {% for design in collection %}
-        <div class="product">
+        <div class="product card">
             <img alt="" src="/images/designes/{{ design.ImageLO|trim }}">
             <br>
-            <a href="{{ path('design', design.uri) }}">{{ design.name }}</a>
+            <a href="{{ path('design', design.uri) }}" class="card-title btn-dark">{{ design.name }}</a>
         </div>
     {% endfor %}
 {% endblock %}

@@ -44,9 +44,10 @@ trait CartAssertionsTrait
 
     public static function assertCartItemsCountEquals(Crawler $crawler, $expectedCount): void
     {
-        $actualCount = $crawler
-            ->filter('.col-md-8 .list-group-item')
-            ->count();
+        $actualCount = (int)$crawler
+            ->filter('.cart')
+            ->getNode(0)
+            ->textContent;
 
         Assert::assertEquals(
             $expectedCount,

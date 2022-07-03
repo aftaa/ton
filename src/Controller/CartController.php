@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CartController extends AbstractController
 {
-    #[Route('/{_locale<en|ru>}/cart', name: 'cart')]
+    #[Route('/{_locale<en|ru>}/cart/', name: 'cart')]
     public function index(CartManager $cartManager, Request $request): Response
     {
         $cart = $cartManager->getCurrentCart();
@@ -26,6 +26,15 @@ class CartController extends AbstractController
         return $this->render('cart/index.html.twig', [
             'cart' => $cart,
             'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/cart/', name: 'simple_cart')]
+    public function simpleCart(CartManager $cartManager): Response
+    {
+        $cart = $cartManager->getCurrentCart();
+        return $this->render('cart/simple.html.twig', [
+            'cart' => $cart,
         ]);
     }
 }

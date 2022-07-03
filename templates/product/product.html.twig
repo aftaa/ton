@@ -8,7 +8,7 @@
     <p>{{ 'Артикул'|trans }}: [{{ product.Articul }}]</p>
     <p>{{ 'Производитель'|trans }}: {{ product.label.getNameByLocale(app.request.locale) }}</p>
     <p>{{ product.getDescriptionByLocale(app.request.locale)|raw }}</p>
-    <p>{{ 'Цена'|trans }}: {{ product.Price|number_format(0, '', ' ') }} ₽</p>
+    <p>{{ 'Цена'|trans }}: <span class="price">{{ product.Price|number_format(0, '', ' ') }}</span> ₽</p>
 
     <hr size="1">
     {{ form(form) }}

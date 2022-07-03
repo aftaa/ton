@@ -13,11 +13,13 @@
 
                 {% for detail in form.details %}
                     <hr size="1">
-                    {{ detail.vars.data.product.Name }}<br>
-                    Size: {{ form_widget(detail.size) }}<br>
-                    {{ detail.vars.data.product.Price }}<br>
-                    {{ 'Количество'|trans }}: {{ form_widget(detail.Quantity) }}
-                    {{ form_widget(detail.remove) }}
+                    <p class="col-md-8 list-group-item">
+                        {{ detail.vars.data.product.Name }}<br>
+                        Size: {{ form_widget(detail.size) }}<br>
+                        {{ detail.vars.data.product.Price }}<br>
+                        {{ 'Количество'|trans }}: {{ form_widget(detail.Quantity) }}
+                        {{ form_widget(detail.remove) }}
+                    </p>
                     <hr size="1">
                 {% endfor %}
 

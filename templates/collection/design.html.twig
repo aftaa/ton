@@ -4,7 +4,7 @@
         <div class="product">
             <img alt="" src="/images/products/{{ product.ImageLO|trim }}">
             <br>
-            <a href="{{ path('product', {product: product.id}) }}">{{ product.name }}</a>
+            <a class="product-link" href="{{ path('product', {product: product.id}) }}">{{ product.name }}</a>
         </div>
     {% endfor %}
 {% endblock %}
