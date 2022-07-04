@@ -11,7 +11,7 @@ class CartControllerTest extends WebTestCase
 {
     use CartAssertionsTrait;
 
-    private function getRandomProduct(AbstractBrowser $client): array
+    private function getRandomDesign(AbstractBrowser $client): array
     {
         $crawler = $client->request('GET', '/ru/collection/');
         $productNode = $crawler->filter('.card')->eq(0);
@@ -26,13 +26,14 @@ class CartControllerTest extends WebTestCase
 
     private function addRandomProductToCart(AbstractBrowser $client, int $quantity = 1): array
     {
-        $design = $this->getRandomProduct($client);
+        $design = $this->getRandomDesign($client);
         $crawler = $client->request('GET', $design['url']);
         $productNode = $crawler->filter('.product');
         $productNode = $productNode->getNode(0);
         $product['url'] = $crawler->selectLink($design['name'])->link();
         $crawler = $client->click($product['url']);
 
+        $product['name'] = $crawler->filter('h1')->getNode(0)->textContent;
         $product['price'] = $crawler->filter('.price')->getNode(0)->textContent;
         $product['price'] = str_replace(' ', '', $product['price']);
         $form = $crawler->filter('form')->form();
@@ -59,90 +60,97 @@ class CartControllerTest extends WebTestCase
 
     public function testAddProductToCart()
     {
-        $client = CartControllerTest::createClient();
+        $client = $this->createClient1();
         $product = $this->addRandomProductToCart($client);
         $crawler = $client->request('GET', '/cart/');
 
         $this->assertResponseIsSuccessful();
-
         $this->assertCartItemsCountEquals($crawler, 1);
-//        $this->assertCartContainsProductWithQuantity($crawler, $product['name'], 1);
-//        $this->assertCartTotalEquals($crawler, $product['price']);
+        $crawler = $client->request('GET', '/cart/');
+        $this->assertCartContainsProductWithQuantity($crawler, $product['name'], 1);
+        $this->assertCartTotalEquals($crawler, $product['price']);
     }
 
-//    public function testAddProductTwiceToCart()
-//    {
-//        $client = static::createClient();
-//
-//        // Gets a random product form the homepage
-//        $product = $this->getRandomProduct($client);
-//
-//        // Go to a product page from
-//        $crawler = $client->request('GET', $product['url']);
-//
-//        // Adds the product twice to the cart
-//        for ($i=0 ; $i<2 ;$i++) {
-//            $form = $crawler->filter('form')->form();
-//            $form->setValues(['add_to_cart[quantity]' => 1]);
-//            $client->submit($form);
+    public function testAddProductTwiceToCart()
+    {
+        $client = $this->createClient1();
+
+        // Gets a random product form the homepage
+        $design = $this->getRandomDesign($client);
+
+        // Go to a product page from
+        $crawler = $client->request('GET', $design['url']);
+        $product['url'] = $crawler->selectLink($design['name'])->link()->getUri();
+        // Adds the product twice to the cart
+        for ($i = 0; $i < 2; $i++) {
+            $crawler = $client->request('GET', $product['url']);
+            $product['name'] = $crawler->filter('h1')->getNode(0)->textContent;
+            $product['price'] = $crawler->filter('.price')->getNode(0)->textContent;
+            $product['price'] = str_replace(' ', '', $product['price']);
+            $form = $crawler->filter('form')->form();
+            $form->setValues(['add_to_cart[Quantity]' => 1]);
+            $client->submit($form);
+//            $this->assertTrue($client->getResponse()->isRedirection());
 //            $crawler = $client->followRedirect();
-//        }
-//
-//        // Go to the cart
-//        $crawler = $client->request('GET', '/cart');
-//
-//        $this->assertResponseIsSuccessful();
-//        $this->assertCartItemsCountEquals($crawler, 1);
-//        $this->assertCartContainsProductWithQuantity($crawler, $product['name'], 2);
-//        $this->assertCartTotalEquals($crawler, $product['price'] * 2);
-//    }
-//
-//    public function testRemoveProductFromCart()
-//    {
-//        $client = static::createClient();
-//        $product = $this->addRandomProductToCart($client);
-//
-//        // Go to the cart page
-//        $client->request('GET', '/cart');
-//
-//        // Removes the product from the cart
-//        $client->submitForm('Remove');
+//            $crawler = $client->request('GET', $product['url']);
+        }
+
+        // Go to the cart
+        $crawler = $client->request('GET', '/cart/');
+
+        $this->assertResponseIsSuccessful();
+        $this->assertCartItemsCountEquals($crawler, 1);
+        $this->assertCartContainsProductWithQuantity($crawler, $product['name'], 2);
+        $this->assertCartTotalEquals($crawler, $product['price'] * 2);
+    }
+
+    public function testRemoveProductFromCart()
+    {
+        $client = $this->createClient1();
+        $product = $this->addRandomProductToCart($client);
+
+        // Go to the cart page
+        $client->request('GET', '/ru/cart/');
+
+        // Removes the product from the cart
+        $client->submitForm('Удалить');
 //        $crawler = $client->followRedirect();
-//
-//        $this->assertCartNotContainsProduct($crawler, $product['name']);
-//    }
-//
-//    public function testClearCart()
-//    {
-//        $client = static::createClient();
-//        $this->addRandomProductToCart($client);
-//
-//        // Go to the cart page
-//        $client->request('GET', '/cart');
-//
-//        // Clears the cart
-//        $client->submitForm('Clear');
-//        $crawler = $client->followRedirect();
-//
-//        $this->assertCartIsEmpty($crawler);
-//    }
-//
-//    public function testUpdateQuantity()
-//    {
-//        $client = static::createClient();
-//        $product = $this->addRandomProductToCart($client);
-//
-//        // Go to the cart page
-//        $crawler = $client->request('GET', '/cart');
-//
-//        // Updates the quantity
-//        $cartForm = $crawler->filter('.col-md-8 form')->form([
-//            'cart[items][0][quantity]' => 4
-//        ]);
-//        $client->submit($cartForm);
-//        $crawler = $client->followRedirect();
-//
-//        $this->assertCartTotalEquals($crawler, $product['price'] * 4);
-//        $this->assertCartContainsProductWithQuantity($crawler, $product['name'], 4);
-//    }
+        $crawler = $client->request('GET', '/ru/cart/');
+
+        $this->assertCartNotContainsProduct($crawler, $product['name']);
+    }
+
+    public function testClearCart()
+    {
+        $client = $this->createClient1();
+        $this->addRandomProductToCart($client);
+
+        // Go to the cart page
+        $client->request('GET', '/cart');
+
+        // Clears the cart
+        $client->submitForm('Очистить');
+        $crawler = $client->followRedirect();
+
+        $this->assertCartIsEmpty($crawler);
+    }
+
+    public function testUpdateQuantity()
+    {
+        $client = static::createClient();
+        $product = $this->addRandomProductToCart($client);
+
+        // Go to the cart page
+        $crawler = $client->request('GET', '/cart');
+
+        // Updates the quantity
+        $cartForm = $crawler->filter('.col-md-8 form')->form([
+            'cart[items][0][quantity]' => 4
+        ]);
+        $client->submit($cartForm);
+        $crawler = $client->followRedirect();
+
+        $this->assertCartTotalEquals($crawler, $product['price'] * 4);
+        $this->assertCartContainsProductWithQuantity($crawler, $product['name'], 4);
+    }
 }

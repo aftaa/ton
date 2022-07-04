@@ -31,7 +31,7 @@ trait CartAssertionsTrait
     public static function assertCartTotalEquals(Crawler $crawler, $expectedTotal): void
     {
         $actualTotal = (float)$crawler
-            ->filter('.col-md-4 .list-group-item span')
+            ->filter('.price')
             ->getNode(0)
             ->textContent;
 
@@ -67,7 +67,7 @@ trait CartAssertionsTrait
 
     private static function getItemByProductName(Crawler $crawler, string $productName): ?Crawler
     {
-        $items = $crawler->filter('.col-md-8 .list-group-item')->reduce(
+        $items = $crawler->filter('.product')->reduce(
             function (Crawler $node) use ($productName) {
                 if ($node->filter('h5')->getNode(0)->textContent === $productName) {
                     return $node;
@@ -76,7 +76,6 @@ trait CartAssertionsTrait
                 return false;
             }
         );
-
         return empty($items) ? null : $items->eq(0);
     }
 

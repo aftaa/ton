@@ -1,1 +1,9 @@
-    <div class="cart">{{ cart.details|length }}</div>
+<div class="cart">{{ cart.details|length }}</div>
+
+{% for detail in cart.details %}
+    <div class="product">
+        <h5>{{ detail.Product.Name }}</h5>
+        <input type="number" value="{{ detail.Quantity }}"/>
+        <div class="price">{{ detail.Product.Price * detail.Quantity }}</div>
+    </div>
+{% endfor %}
