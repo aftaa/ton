@@ -115,7 +115,7 @@ class CartControllerTest extends WebTestCase
         // Removes the product from the cart
         $client->submitForm('Удалить');
 //        $crawler = $client->followRedirect();
-        $crawler = $client->request('GET', '/ru/cart/');
+        $crawler = $client->request('GET', '/cart/');
 
         $this->assertCartNotContainsProduct($crawler, $product['name']);
     }
@@ -126,11 +126,12 @@ class CartControllerTest extends WebTestCase
         $this->addRandomProductToCart($client);
 
         // Go to the cart page
-        $client->request('GET', '/cart');
+        $client->request('GET', '/ru/cart/');
 
         // Clears the cart
         $client->submitForm('Очистить');
-        $crawler = $client->followRedirect();
+//        $crawler = $client->followRedirect();
+        $crawler = $client->request('GET', '/en/cart/');
 
         $this->assertCartIsEmpty($crawler);
     }

@@ -3,13 +3,18 @@
 namespace App\Form\EventListener;
 
 use App\Entity\Order;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 
 class ClearCartListener implements EventSubscriberInterface
 {
-
+    public function __construct(
+        private readonly EntityManagerInterface $entityManager,
+    )
+    {
+    }
     /**
      * @inheritDoc
      */
@@ -31,5 +36,7 @@ class ClearCartListener implements EventSubscriberInterface
             return;
         }
         $cart->removeDetails();
+        $this->entityManager->persist($cart);
+        $this->entityManager->flush();
     }
 }

@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Order;
 use App\Form\EventListener\ClearCartListener;
 use App\Form\EventListener\RemoveCartItemListener;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -16,6 +17,7 @@ class CartType extends AbstractType
 {
     public function __construct(
         private readonly TranslatorInterface $translator,
+        private readonly EntityManagerInterface $entityManager,
     )
     {
     }
@@ -32,8 +34,8 @@ class CartType extends AbstractType
             ->add('clear', SubmitType::class, [
                 'label' => $this->translator->trans('Очистить'),
             ]);
-        $builder->addEventSubscriber(new RemoveCartItemListener());
-        $builder->addEventSubscriber(new ClearCartListener());
+        $builder->addEventSubscriber(new RemoveCartItemListener($this->entityManager));
+        $builder->addEventSubscriber(new ClearCartListener($this->entityManager));
     }
 
     public function configureOptions(OptionsResolver $resolver): void
