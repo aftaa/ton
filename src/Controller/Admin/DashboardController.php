@@ -57,17 +57,18 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Админка', 'fa fa-home');
-        yield MenuItem::linkToCrud('Orders', 'fas fa-list', Order::class);
-        yield MenuItem::linkToCrud('Order details', 'fas fa-list', OrderDetail::class);
-        yield MenuItem::linkToCrud('Designs', 'fas fa-list', Design::class);
-        yield MenuItem::linkToCrud('Types', 'fas fa-list', Type::class);
-        yield MenuItem::linkToCrud('Labels', 'fas fa-list', Label::class);
-        yield MenuItem::linkToCrud('Products', 'fas fa-list', Product::class);
-        yield MenuItem::linkToCrud('Sizes', 'fas fa-tags', Size::class);
-        yield MenuItem::linkToCrud('Colors', 'fas fa-tags', Color::class);
-        yield MenuItem::linkToCrud('News', 'fas fa-file-text', News::class);
-        yield MenuItem::linkToCrud('Articles', 'fas fa-file-text', Article::class);
-        yield MenuItem::linkToCrud('Pages', 'fas fa-file-text', Page::class);
-        yield MenuItem::linkToCrud('Customers', 'fas fa-user', Customer::class);
+        yield MenuItem::linkToCrud('Orders', 'fa fa-list', Order::class);
+        yield MenuItem::linkToCrud('Order details', 'fa fa-list', OrderDetail::class);
+        yield MenuItem::linkToCrud('Designs', 'fa fa-list', Design::class);
+        yield MenuItem::linkToCrud('Types', 'fa fa-list', Type::class);
+        yield MenuItem::linkToCrud('Labels', 'fa fa-list', Label::class);
+        yield MenuItem::linkToCrud('Products', 'fa fa-list', Product::class);
+        yield MenuItem::linkToCrud('Sizes', 'fa fa-tags', Size::class);
+        yield MenuItem::linkToCrud('Colors', 'fa fa-tags', Color::class);
+        yield MenuItem::linkToCrud('News', 'fa fa-file-text', News::class);
+        yield MenuItem::linkToCrud('Articles', 'fa fa-file-text', Article::class);
+        yield MenuItem::linkToCrud('Pages', 'fa fa-file-text', Page::class);
+        yield MenuItem::linkToCrud('Customers', 'fa fa-user', Customer::class);
+        yield MenuItem::linkToLogout('Logout', 'fa fa-exit');
     }
 }
