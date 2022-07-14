@@ -5,6 +5,7 @@ namespace App\Form\EventListener;
 use App\Entity\Order;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\Button;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 
@@ -32,7 +33,9 @@ class ClearCartListener implements EventSubscriberInterface
             return;
         }
 
-        if (!$form->get('clear')->isClicked()) {
+        $button = $form->get('clear');
+        /** @var Button */
+        if (!$button->isClicked()) {
             return;
         }
         $cart->removeDetails();

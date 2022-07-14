@@ -49,7 +49,6 @@ class OrderController extends AbstractController
                 ->setShipPostalcode($user->getPostalcode())
                 ->setShipAddress($user->getAddress())
                 ->setShipMetro($user->getMetro());
-            dump($order);
             foreach ($order->getDetails() as $detail) {
                 $detail
                     ->setProductDesc($detail->getProduct()->getNameByLocale($_locale))
