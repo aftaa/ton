@@ -6,6 +6,7 @@ use App\Entity\OrderDetail;
 use App\Repository\SizeRepository;
 use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,7 +24,9 @@ class AddToCartType extends AbstractType
     {
         $builder
             ->add('size')
-            ->add('Quantity')
+            ->add('Quantity', NumberType::class, [
+                'data' => 1,
+            ])
             ->add('add', SubmitType::class, [
                 'label' => $this->translator->trans('Добавить'),
             ])

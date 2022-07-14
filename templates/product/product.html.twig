@@ -11,7 +11,9 @@
     <p>{{ 'Цена'|trans }}: <span class="price">{{ product.Price|number_format(0, '', ' ') }}</span> ₽</p>
 
     <hr size="1">
-    {{ form(form) }}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
     <hr size="1">
 
     <img alt="" src="/images/products/{{ product.ImageHI }}">

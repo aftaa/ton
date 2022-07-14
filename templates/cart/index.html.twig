@@ -31,11 +31,13 @@
             </div>
         {% else %}
             <div class="alert alert-info">
-                Your cart is empty. Go to the <a href="{{ path('index') }}">product list</a>.
+                Your cart is empty. Go to the <a href="{{ path('collection') }}">product list</a>.
             </div>
         {% endif %}
     </div>
     <div>
+        {% if cart.details.count > 0 %}
         <a href="{{ path('order') }}">{{ 'Оформить заказ'|trans }}</a>
+        {% endif %}
     </div>
 {% endblock %}
