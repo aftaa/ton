@@ -14,9 +14,9 @@ class RedisController extends AbstractController
         $redis = new \Redis();
         $redis->connect('127.0.0.1');
 
-        if (!$redis->exists('counter')) {
-            $redis->set('counter', '0');
-        }
+//        if (!$redis->exists('counter')) {
+//            $redis->set('counter', '0');
+//        }
 
         $counter = $redis->incr('counter');
 
