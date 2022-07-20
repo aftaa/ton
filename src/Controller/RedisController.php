@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Manager\RedisManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -9,16 +10,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class RedisController extends AbstractController
 {
     #[Route('/redis/', name: 'redis_test')]
-    public function index(): Response
+    public function index(RedisManager $redisManager): Response
     {
-        $redis = new \Redis();
-        $redis->connect('127.0.0.1');
-
-//        if (!$redis->exists('counter')) {
-//            $redis->set('counter', '0');
-//        }
-
-        $counter = $redis->incr('counter');
+        $counter = $redisManager->getRedis()->incr('counter');
 
         return $this->render('redis/index.html.twig', [
             'counter' => $counter,
