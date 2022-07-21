@@ -2,9 +2,10 @@
 
 namespace App\Manager;
 
+use App\Interface\RedisManagerInterface;
 use Redis;
 
-class RedisManager
+class RedisManager implements RedisManagerInterface
 {
     public const HOSTNAME = '127.0.0.1';
 
