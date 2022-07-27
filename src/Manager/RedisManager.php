@@ -8,15 +8,17 @@ use Redis;
 class RedisManager implements RedisManagerInterface
 {
     public const HOSTNAME = '127.0.0.1';
+    private static ?\Redis $redis = null;
 
     /**
-     * @param Redis $redis
+     *
      */
-    public function __construct(
-        private readonly Redis $redis = new Redis(),
-    )
+    public function __construct()
     {
-        $this->redis->connect(self::HOSTNAME);
+        if (!self::$redis instanceof Redis) {
+            self::$redis = new Redis();
+            self::$redis->connect(self::HOSTNAME);
+        }
     }
 
     /**
@@ -24,6 +26,6 @@ class RedisManager implements RedisManagerInterface
      */
     public function getRedis(): Redis
     {
-        return $this->redis;
+        return self::$redis;
     }
 }
