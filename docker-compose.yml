@@ -45,7 +45,7 @@ services:
       ADMIN_USER: admin
       ADMIN_PASS: admin
       REDIS_1_HOST: redis
-      REdiS_1_POR: 6379
+      REdiS_1_PORT: 6379
     links:
       - redis
     ports:
