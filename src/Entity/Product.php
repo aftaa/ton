@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
@@ -100,6 +102,18 @@ class Product implements \Stringable
     #[ORM\ManyToOne(targetEntity: Label::class, inversedBy: 'products')]
     #[ORM\JoinColumn(name: 'CategoryID', referencedColumnName: 'CategoryID', nullable: false)]
     private $label;
+
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Score::class)]
+    private Collection $user;
+
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Score::class)]
+    private Collection $scores;
+
+    public function __construct()
+    {
+        $this->user = new ArrayCollection();
+        $this->scores = new ArrayCollection();
+    }
 
     public function getProductID(): ?int
     {
@@ -470,5 +484,65 @@ class Product implements \Stringable
     public function __toString(): string
     {
         return $this->getProductID();
+    }
+
+    /**
+     * @return Collection<int, Score>
+     */
+    public function getUser(): Collection
+    {
+        return $this->user;
+    }
+
+    public function addUser(Score $user): self
+    {
+        if (!$this->user->contains($user)) {
+            $this->user->add($user);
+            $user->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(Score $user): self
+    {
+        if ($this->user->removeElement($user)) {
+            // set the owning side to null (unless already changed)
+            if ($user->getProduct() === $this) {
+                $user->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Score>
+     */
+    public function getScores(): Collection
+    {
+        return $this->scores;
+    }
+
+    public function addScore(Score $score): self
+    {
+        if (!$this->scores->contains($score)) {
+            $this->scores->add($score);
+            $score->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeScore(Score $score): self
+    {
+        if ($this->scores->removeElement($score)) {
+            // set the owning side to null (unless already changed)
+            if ($score->getProduct() === $this) {
+                $score->setProduct(null);
+            }
+        }
+
+        return $this;
     }
 }

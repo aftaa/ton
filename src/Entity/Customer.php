@@ -68,9 +68,13 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'json')]
     private array $roles;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Score::class)]
+    private Collection $scores;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+        $this->scores = new ArrayCollection();
     }
 
     public function getCustomerID()
@@ -311,6 +315,36 @@ class Customer implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Score>
+     */
+    public function getScores(): Collection
+    {
+        return $this->scores;
+    }
+
+    public function addScore(Score $score): self
+    {
+        if (!$this->scores->contains($score)) {
+            $this->scores->add($score);
+            $score->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeScore(Score $score): self
+    {
+        if ($this->scores->removeElement($score)) {
+            // set the owning side to null (unless already changed)
+            if ($score->getUser() === $this) {
+                $score->setUser(null);
+            }
+        }
 
         return $this;
     }
