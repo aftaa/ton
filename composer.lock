@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "51775dd14401572188b5093ba8efcf4f",
+    "content-hash": "08de37af49c7258218d96dff89b9a08d",
     "packages": [
         {
             "name": "dama/doctrine-test-bundle",
@@ -11240,10 +11240,10 @@
     "prefer-lowest": false,
     "platform": {
         "php": ">=8.1",
+        "ext-amqp": "*",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "ext-redis": "*",
-        "ext-amqp": "*"
+        "ext-redis": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"

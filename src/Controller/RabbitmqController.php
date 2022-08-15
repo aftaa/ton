@@ -49,17 +49,4 @@ class RabbitmqController extends AbstractController
             'controller_name' => 'RabbitmqController',
         ]);
     }
-
-    /**
-     * @return AMQPStreamConnection
-     */
-    private function getConnection(): AMQPStreamConnection
-    {
-        return new AMQPStreamConnection(
-            'localhost',
-            49156,
-            'guest',
-            'guest',
-        );
-    }
 }

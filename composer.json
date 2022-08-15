@@ -5,8 +5,10 @@
   "prefer-stable": true,
   "require": {
     "php": ">=8.1",
+    "ext-amqp": "*",
     "ext-ctype": "*",
     "ext-iconv": "*",
+    "ext-redis": "*",
     "dama/doctrine-test-bundle": "^7.1",
     "doctrine/annotations": "^1.0",
     "doctrine/dbal": "^3.3",
@@ -14,6 +16,7 @@
     "doctrine/doctrine-migrations-bundle": "^3.2",
     "doctrine/orm": "^2.12",
     "easycorp/easyadmin-bundle": "^4.3",
+    "php-amqplib/php-amqplib": "3.2.0",
     "php-amqplib/rabbitmq-bundle": "^2.11",
     "phpdocumentor/reflection-docblock": "^5.3",
     "phpstan/phpdoc-parser": "^1.5",
@@ -55,10 +58,7 @@
     "twig/extra-bundle": "^2.12|^3.0",
     "twig/inky-extra": "^3.4",
     "twig/string-extra": "^3.4",
-    "twig/twig": "^2.12|^3.0",
-    "ext-redis": "*",
-    "php-amqplib/php-amqplib": "3.2.0",
-    "ext-amqp": "*"
+    "twig/twig": "^2.12|^3.0"
   },
   "config": {
     "allow-plugins": {
