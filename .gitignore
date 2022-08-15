@@ -1,3 +1,5 @@
+/docker/db
+/docker/nginx/logs
 
 ###> symfony/framework-bundle ###
 /.env.local

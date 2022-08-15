@@ -13,8 +13,8 @@ class RabbitmqManager implements RabbitmqManagerInterface
     public function __construct(
         private readonly AMQPStreamConnection $connection =
         new AMQPStreamConnection(
-            'localhost',
-            49156,
+            'rabbitmq',
+            5672,
             'guest',
             'guest',
         )
