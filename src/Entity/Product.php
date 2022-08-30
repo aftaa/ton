@@ -106,13 +106,14 @@ class Product implements \Stringable
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Score::class)]
     private Collection $user;
 
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Score::class)]
-    private Collection $scores;
+    #[ORM\OneToMany(mappedBy: 'relation', targetEntity: Like::class)]
+    private Collection $likes;
 
     public function __construct()
     {
         $this->user = new ArrayCollection();
         $this->scores = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     public function getProductID(): ?int
@@ -540,6 +541,36 @@ class Product implements \Stringable
             // set the owning side to null (unless already changed)
             if ($score->getProduct() === $this) {
                 $score->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Like>
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(Like $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes->add($like);
+            $like->setRelation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(Like $like): self
+    {
+        if ($this->likes->removeElement($like)) {
+            // set the owning side to null (unless already changed)
+            if ($like->getRelation() === $this) {
+                $like->setRelation(null);
             }
         }
 

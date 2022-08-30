@@ -37,7 +37,7 @@ class Article
 
     public function getArticleID(): ?int
     {
-        return $this->ArticleID;
+          return $this->ArticleID;
     }
 
     public function setArticleID(int $ArticleID): self
