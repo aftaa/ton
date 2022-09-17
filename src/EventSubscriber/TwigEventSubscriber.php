@@ -22,7 +22,7 @@ class TwigEventSubscriber implements EventSubscriberInterface
     {
         $request = $event->getRequest();
         $query = $request->query;
-        $menu = $this->typeRepository->findBy(
+        $menu = $this->typeRepository->findForMenu(
             $request->getLocale(),
             $query->getInt('labelId', 0),
             $query->getInt('designId', 0),
