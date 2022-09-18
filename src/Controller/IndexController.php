@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class IndexController extends AbstractController
 {
@@ -19,6 +22,11 @@ class IndexController extends AbstractController
         return $this->redirectToRoute('index', ['_locale' => 'ru']);
     }
 
+    /**
+     * @throws RuntimeError
+     * @throws SyntaxError
+     * @throws LoaderError
+     */
     #[Route('/{_locale<en|ru>}/', name: 'index')]
     public function index(
         string $_locale,

@@ -20,7 +20,7 @@ final class Version20220630175227 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE TripCustomers ADD COLUMN roles VARCHAR(1000) NOT NULL DEFAULT ""');
+//        $this->addSql('ALTER TABLE TripCustomers ADD COLUMN roles VARCHAR(1000) NOT NULL DEFAULT ""');
     }
 
     public function down(Schema $schema): void

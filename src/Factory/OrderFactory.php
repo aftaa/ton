@@ -11,6 +11,7 @@ use App\Entity\Size;
 class OrderFactory
 {
     /**
+     * @param Customer|null $customer
      * @return Order
      */
     public function create(?Customer $customer = null): Order
@@ -28,15 +29,16 @@ class OrderFactory
     /**
      * @param Product $product
      * @param Size $size
+     * @param int $quantity
      * @return OrderDetail
      */
-    public function createDetail(Product $product, Size $size): OrderDetail
+    public function createDetail(Product $product, Size $size, int $quantity = 1): OrderDetail
     {
         $detail = new OrderDetail();
         $detail
             ->setProduct($product)
             ->setSize($size)
-            ->setQuantity(1);
+            ->setQuantity($quantity);
         return $detail;
     }
 }

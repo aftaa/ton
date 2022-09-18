@@ -19,7 +19,7 @@ final class Version20220605153341 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $this->addSql('ALTER TABLE TripOrderDetails ADD COLUMN SizeID INT NULL AFTER ProductID');
+//        $this->addSql('ALTER TABLE TripOrderDetails ADD COLUMN SizeID INT NULL AFTER ProductID');
     }
 
     public function down(Schema $schema): void

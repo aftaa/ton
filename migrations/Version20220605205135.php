@@ -20,7 +20,7 @@ final class Version20220605205135 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE TripSizes ADD COLUMN display BOOLEAN NOT NULL DEFAULT TRUE');
+//        $this->addSql('ALTER TABLE TripSizes ADD COLUMN display BOOLEAN NOT NULL DEFAULT TRUE');
     }
 
     public function down(Schema $schema): void
