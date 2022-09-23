@@ -14,97 +14,94 @@ class Product implements \Stringable
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(name: 'ProductID', type: 'integer')]
-    private $ProductID;
+    private int $ProductID;
 
     #[ORM\Column(name: 'CategoryID', type: 'integer')]
-    private $CategoryID;
+    private int $CategoryID;
 
     #[ORM\Column(name: 'DBDate', type: 'datetime')]
-    private $DBDate;
+    private \DateTimeInterface $DBDate;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $Name;
+    private string $Name;
 
     #[ORM\Column(name: 'NameEN', type: 'string', length: 255)]
-    private $NameEN;
+    private string $NameEN;
 
     #[ORM\Column(type: 'boolean')]
-    private $display_ru;
+    private bool $display_ru;
 
     #[ORM\Column(type: 'boolean')]
-    private $display_en;
+    private bool $display_en;
 
     #[ORM\Column(type: 'boolean')]
-    private $Visible;
+    private bool $Visible;
 
     #[ORM\Column(type: 'boolean')]
-    private $Marked;
+    private bool $Marked;
 
     #[ORM\Column(name: 'MarkedTime', type: 'datetime')]
-    private $MarkedTime;
+    private \DateTimeInterface $MarkedTime;
 
     #[ORM\Column(type: 'text')]
-    private $Description;
+    private string $Description;
 
     #[ORM\Column(name: 'DescriptionEN', type: 'text')]
-    private $DescriptionEN;
+    private string $DescriptionEN;
 
     #[ORM\Column(name: 'ImageLO', type: 'string', length: 255)]
-    private $ImageLO;
+    private string $ImageLO;
 
     #[ORM\Column(name: 'ImageHI', type: 'string', length: 255)]
-    private $ImageHI;
+    private string $ImageHI;
 
     #[ORM\Column(name: 'ImageFL', type: 'string', length: 255)]
-    private $ImageFL;
+    private string $ImageFL;
 
     #[ORM\Column(name: 'ImageHB', type: 'string', length: 255)]
-    private $ImageHB;
+    private string $ImageHB;
 
     #[ORM\Column(name: 'ImageFB', type: 'string', length: 255)]
-    private $ImageFB;
+    private string $ImageFB;
 
     #[ORM\Column(type: 'integer')]
-    private $Price;
+    private int $Price;
 
     #[ORM\Column(name: 'PriceEN', type: 'integer')]
-    private $PriceEN;
+    private int $PriceEN;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $Articul;
+    private string $Articul;
 
     #[ORM\Column(name: 'TypeID', type: 'integer')]
-    private $TypeID;
+    private int $TypeID;
 
     #[ORM\Column(name: 'DesignID', type: 'integer')]
-    private $DesignID;
+    private int $DesignID;
 
     #[ORM\Column(type: 'string', length: 1)]
-    private $Sale;
+    private string $Sale;
 
     #[ORM\Column(type: 'boolean')]
-    private $Search;
+    private bool $Search;
 
     #[ORM\Column(type: 'text')]
-    private $keywords;
+    private ?string $keywords;
 
     #[ORM\Column(type: 'text')]
-    private $meta_description;
+    private ?string $meta_description;
 
     #[ORM\ManyToOne(targetEntity: Type::class, inversedBy: 'products')]
     #[ORM\JoinColumn(name: 'TypeID', referencedColumnName: 'TypeID', nullable: false)]
-    private $type;
+    private ?Type $type;
 
     #[ORM\ManyToOne(targetEntity: Design::class, inversedBy: 'products')]
     #[ORM\JoinColumn(name: 'DesignID', referencedColumnName: 'DesignID', nullable: false)]
-    private $design;
+    private ?Design $design;
 
     #[ORM\ManyToOne(targetEntity: Label::class, inversedBy: 'products')]
     #[ORM\JoinColumn(name: 'CategoryID', referencedColumnName: 'CategoryID', nullable: false)]
-    private $label;
-
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Score::class)]
-    private Collection $user;
+    private ?Label $label;
 
     #[ORM\OneToMany(mappedBy: 'relation', targetEntity: Like::class)]
     private Collection $likes;
@@ -112,7 +109,6 @@ class Product implements \Stringable
     public function __construct()
     {
         $this->user = new ArrayCollection();
-        $this->scores = new ArrayCollection();
         $this->likes = new ArrayCollection();
     }
 
@@ -485,66 +481,6 @@ class Product implements \Stringable
     public function __toString(): string
     {
         return $this->getProductID();
-    }
-
-    /**
-     * @return Collection<int, Score>
-     */
-    public function getUser(): Collection
-    {
-        return $this->user;
-    }
-
-    public function addUser(Score $user): self
-    {
-        if (!$this->user->contains($user)) {
-            $this->user->add($user);
-            $user->setProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(Score $user): self
-    {
-        if ($this->user->removeElement($user)) {
-            // set the owning side to null (unless already changed)
-            if ($user->getProduct() === $this) {
-                $user->setProduct(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Score>
-     */
-    public function getScores(): Collection
-    {
-        return $this->scores;
-    }
-
-    public function addScore(Score $score): self
-    {
-        if (!$this->scores->contains($score)) {
-            $this->scores->add($score);
-            $score->setProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeScore(Score $score): self
-    {
-        if ($this->scores->removeElement($score)) {
-            // set the owning side to null (unless already changed)
-            if ($score->getProduct() === $this) {
-                $score->setProduct(null);
-            }
-        }
-
-        return $this;
     }
 
     /**

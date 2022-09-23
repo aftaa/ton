@@ -3,9 +3,6 @@
 namespace App\Controller;
 
 use App\Interface\RabbitmqManagerInterface;
-use App\Manager\RabbitmqManager;
-use PhpAmqpLib\Connection\AMQPStreamConnection;
-use PhpAmqpLib\Exchange\AMQPExchangeType;
 use PhpAmqpLib\Message\AMQPMessage;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
